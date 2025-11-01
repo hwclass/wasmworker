@@ -1,5 +1,12 @@
 <p align="center">
-  <img src="./logo.png" alt="WasmWorker Logo" width="200"/>
+  <picture>
+    <!-- For dark mode -->
+    <source media="(prefers-color-scheme: dark)" srcset="./logo-dark.png" />
+    <!-- For light mode -->
+    <source media="(prefers-color-scheme: light)" srcset="./logo-light.png" />
+    <!-- Fallback -->
+    <img alt="WasmWorker Logo" src="./logo-light.png" width="200"/>
+  </picture>
 </p>
 
 <h1 align="center">WasmWorker</h1>
