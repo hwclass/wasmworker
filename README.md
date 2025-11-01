@@ -159,7 +159,7 @@ const result = await worker.call('process', buffer, {
 
 ## 🏗️ Building WASM Modules
 
-### Rust Example
+### Quick Example
 
 ```rust
 #[no_mangle]
@@ -181,7 +181,28 @@ pub extern "C" fn fib(n: u32) -> u64 {
 cargo build --target wasm32-unknown-unknown --release
 ```
 
-See [examples/rust-add](./examples/rust-add) for a complete example.
+### Running the Example
+
+```bash
+# 1. Build the WASM module
+cd examples/rust-add
+./build.sh
+
+# 2. Run the demo (from repo root)
+cd ../..
+pnpm demo
+```
+
+The demo app will open at `http://localhost:3000` with the example pre-loaded!
+
+### Complete Guide
+
+For detailed instructions on building WASM modules, optimization tips, and creating your own examples, see:
+
+📚 **[Examples Guide](./examples/README.md)** - Complete guide with step-by-step instructions
+
+Available examples:
+- **[rust-add](./examples/rust-add)** - Basic Rust WASM module with arithmetic and Fibonacci
 
 ---
 
