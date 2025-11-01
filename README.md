@@ -157,6 +157,151 @@ const result = await worker.call('process', buffer, {
 
 ---
 
+## 🔌 Framework Integration
+
+### Vanilla JavaScript/TypeScript
+
+```typescript
+import { WasmWorker } from '@wasmworker/sdk';
+
+let worker: WasmWorker | null = null;
+
+async function initializeWorker() {
+  worker = await WasmWorker.load({
+    moduleUrl: '/path/to/module.wasm'
+  });
+  console.log('Worker initialized!');
+}
+
+async function processData(input: number) {
+  if (!worker) {
+    throw new Error('Worker not initialized');
+  }
+
+  const result = await worker.call('process', input);
+  return result;
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+  initializeWorker().catch(console.error);
+});
+
+// Use in event handlers
+document.getElementById('btn')?.addEventListener('click', async () => {
+  const result = await processData(42);
+  document.getElementById('output')!.textContent = `Result: ${result}`;
+});
+```
+
+### React
+
+```typescript
+import { WasmWorker } from '@wasmworker/sdk';
+import { useState, useEffect, useCallback } from 'react';
+
+// Custom hook for WasmWorker
+function useWasmWorker(moduleUrl: string) {
+  const [worker, setWorker] = useState<WasmWorker | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    WasmWorker.load({ moduleUrl })
+      .then((w) => {
+        if (mounted) {
+          setWorker(w);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (mounted) {
+          setError(err);
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      mounted = false;
+      worker?.terminate();
+    };
+  }, [moduleUrl]);
+
+  const call = useCallback(
+    async <TIn, TOut>(fn: string, payload?: TIn): Promise<TOut> => {
+      if (!worker) throw new Error('Worker not initialized');
+      return worker.call<TIn, TOut>(fn, payload);
+    },
+    [worker]
+  );
+
+  return { worker, loading, error, call };
+}
+
+// Component example
+export function WasmComponent() {
+  const { loading, error, call } = useWasmWorker('/module.wasm');
+  const [result, setResult] = useState<number | null>(null);
+
+  const handleProcess = async () => {
+    try {
+      const output = await call<number, number>('process', 42);
+      setResult(output);
+    } catch (err) {
+      console.error('Processing failed:', err);
+    }
+  };
+
+  if (loading) return <div>Loading WASM module...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div>
+      <button onClick={handleProcess}>Process Data</button>
+      {result !== null && <p>Result: {result}</p>}
+    </div>
+  );
+}
+```
+
+### Vue 3
+
+```typescript
+import { WasmWorker } from '@wasmworker/sdk';
+import { ref, onMounted, onUnmounted } from 'vue';
+
+export function useWasmWorker(moduleUrl: string) {
+  const worker = ref<WasmWorker | null>(null);
+  const loading = ref(true);
+  const error = ref<Error | null>(null);
+
+  onMounted(async () => {
+    try {
+      worker.value = await WasmWorker.load({ moduleUrl });
+      loading.value = false;
+    } catch (err) {
+      error.value = err as Error;
+      loading.value = false;
+    }
+  });
+
+  onUnmounted(() => {
+    worker.value?.terminate();
+  });
+
+  const call = async <TIn, TOut>(fn: string, payload?: TIn): Promise<TOut> => {
+    if (!worker.value) throw new Error('Worker not initialized');
+    return worker.value.call<TIn, TOut>(fn, payload);
+  };
+
+  return { worker, loading, error, call };
+}
+```
+
+---
+
 ## 🏗️ Building WASM Modules
 
 ### Quick Example
@@ -289,13 +434,29 @@ wasmworker/
 
 ## 🗺️ Roadmap
 
-- [ ] Worker pooling for parallel execution
-- [ ] Multiple module support
-- [ ] WASI/WASI-subset support
-- [ ] Type-safe bindings codegen
-- [ ] Improved streaming API
-- [ ] Memory management helpers
-- [ ] Browser compatibility testing
+### Core Features
+
+- [ ] **Persistent Worker Sessions** - Keep worker + WASM instance alive across calls with retained memory/state. Critical for model caching and incremental AI inference.
+- [ ] **Worker Pooling** - Automatically spawn and manage multiple workers. Enables parallel inference or batching for multiple requests.
+- [ ] **Streaming Results** - Return data incrementally via async iterators. Essential for token-by-token AI model outputs.
+- [ ] **Type-Safe Bindings** - Auto-generate TypeScript interfaces from WASM exports. Improves DX with full type safety.
+- [ ] **WASI Support** - Extended compatibility with WASI-enabled runtimes. Helpful for advanced AI libraries.
+- [ ] **Memory Management Helpers** - Tools for efficient memory allocation/deallocation patterns.
+
+### Upcoming Examples
+
+- [ ] **🤖 Mini AI Inference Worker** - Lightweight model (sentiment classifier, keyword extractor) running entirely in browser with persistent WASM worker keeping model in memory
+- [ ] **📊 Real-time Analytics Engine** - Process streaming data with WebAssembly
+- [ ] **🎨 Image Processing Pipeline** - Parallel image transformation using worker pool
+- [ ] **🔐 Cryptography Suite** - Secure operations in isolated workers
+
+### Future Enhancements
+
+- [ ] Multiple module support with dependency resolution
+- [ ] Advanced error recovery and retry mechanisms
+- [ ] Performance profiling and monitoring tools
+- [ ] Browser compatibility testing suite
+- [ ] WebGPU integration for hybrid compute
 
 ---
 
