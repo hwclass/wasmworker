@@ -1,6 +1,6 @@
 {
   "name": "@wasmworker/sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lightweight SDK for running WebAssembly modules inside WebWorkers",
   "type": "module",
   "main": "./dist/index.js",
