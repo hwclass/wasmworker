@@ -1,0 +1,27 @@
+{
+  "name": "wasmworker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lightweight SDK for running WebAssembly modules inside WebWorkers",
+  "scripts": {
+    "build": "pnpm -r --filter './packages/**' run build",
+    "dev": "pnpm --filter demo run dev",
+    "demo": "pnpm --filter demo run dev",
+    "test": "pnpm -r run test",
+    "typecheck": "pnpm -r run typecheck",
+    "clean": "pnpm -r run clean"
+  },
+  "keywords": [
+    "wasm",
+    "webassembly",
+    "worker",
+    "webworker",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}
