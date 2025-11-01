@@ -12,24 +12,40 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm run clean && pnpm run build && pnpm run test"
   },
   "keywords": [
     "wasm",
     "webassembly",
     "worker",
     "webworker",
-    "typescript"
+    "typescript",
+    "browser",
+    "parallel",
+    "performance",
+    "rust"
   ],
-  "author": "",
+  "author": "Baris Guler",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/barisguler/wasmworker.git",
+    "directory": "packages/sdk"
+  },
+  "homepage": "https://github.com/barisguler/wasmworker#readme",
+  "bugs": {
+    "url": "https://github.com/barisguler/wasmworker/issues"
+  },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "jsdom": "^24.0.0",
