@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo-transparent.png" alt="WasmWorker Logo" width="200" />
+  <img src="../../logo-transparent.png" alt="WasmWorker Logo" width="200" />
 </p>
 
 <h1 align="center">WasmWorker</h1>
