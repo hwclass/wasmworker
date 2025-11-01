@@ -46,8 +46,8 @@ export class WasmWorker {
     return new Promise((resolve, reject) => {
       try {
         // Create worker from the runtime script
-        // In a real build, this would be bundled or served separately
-        const workerUrl = new URL('./worker/runtime.js', import.meta.url);
+        // Use Vite's worker import syntax
+        const workerUrl = new URL('./worker/runtime.ts', import.meta.url);
         this.worker = new Worker(workerUrl, { type: 'module' });
 
         // Set up message handler

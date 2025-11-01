@@ -13,9 +13,10 @@
 
       body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
         min-height: 100vh;
         padding: 2rem;
+        color: #e5e5e5;
       }
 
       .container {
@@ -23,61 +24,88 @@
         margin: 0 auto;
       }
 
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+      }
+
+      .logo {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 1.5rem;
+        filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.1));
+      }
+
       h1 {
-        color: white;
+        color: #ffffff;
         margin-bottom: 0.5rem;
         font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.5px;
       }
 
       .subtitle {
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 2rem;
+        color: #a0a0a0;
+        margin-bottom: 0;
         font-size: 1.1rem;
+        font-weight: 400;
       }
 
       .card {
-        background: white;
-        border-radius: 12px;
+        background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+        border: 1px solid #333;
+        border-radius: 16px;
         padding: 2rem;
         margin-bottom: 1.5rem;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
       }
 
       .card h2 {
         margin-bottom: 1rem;
-        color: #333;
+        color: #ffffff;
         font-size: 1.5rem;
+        font-weight: 600;
       }
 
       .status {
         display: inline-block;
         padding: 0.5rem 1rem;
-        border-radius: 6px;
+        border-radius: 8px;
         font-weight: 600;
         margin-bottom: 1rem;
       }
 
       .status.loading {
-        background: #fef3c7;
-        color: #92400e;
+        background: linear-gradient(135deg, #3a2f1a 0%, #2d2515 100%);
+        color: #fbbf24;
+        border: 1px solid #4a3820;
       }
 
       .status.ready {
-        background: #d1fae5;
-        color: #065f46;
+        background: linear-gradient(135deg, #1a3a2a 0%, #152d21 100%);
+        color: #10b981;
+        border: 1px solid #1e4d36;
       }
 
       .status.error {
-        background: #fee2e2;
-        color: #991b1b;
+        background: linear-gradient(135deg, #3a1a1a 0%, #2d1515 100%);
+        color: #ef4444;
+        border: 1px solid #4a2020;
       }
 
       button {
-        background: #667eea;
-        color: white;
-        border: none;
+        background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
+        color: #ffffff;
+        border: 1px solid #555;
         padding: 0.75rem 1.5rem;
-        border-radius: 6px;
+        border-radius: 8px;
         font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
@@ -87,13 +115,16 @@
       }
 
       button:hover:not(:disabled) {
-        background: #5568d3;
+        background: linear-gradient(135deg, #5a5a5a 0%, #3a3a3a 100%);
+        border-color: #666;
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
       }
 
       button:disabled {
-        background: #cbd5e1;
+        background: #2a2a2a;
+        border-color: #333;
+        color: #666;
         cursor: not-allowed;
       }
 
@@ -106,28 +137,33 @@
 
       input {
         padding: 0.75rem;
-        border: 2px solid #e2e8f0;
-        border-radius: 6px;
+        border: 1px solid #444;
+        border-radius: 8px;
         font-size: 1rem;
         flex: 1;
         min-width: 80px;
+        background: #1a1a1a;
+        color: #e5e5e5;
       }
 
       input:focus {
         outline: none;
-        border-color: #667eea;
+        border-color: #666;
+        background: #222;
       }
 
       .result {
         margin-top: 1rem;
         padding: 1rem;
-        background: #f1f5f9;
-        border-radius: 6px;
+        background: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 8px;
         font-family: 'Courier New', monospace;
+        color: #e5e5e5;
       }
 
       .result strong {
-        color: #667eea;
+        color: #fff;
       }
 
       .benchmark-results {
@@ -139,14 +175,14 @@
 
       .benchmark-card {
         padding: 1rem;
-        background: #f8fafc;
+        background: #1a1a1a;
         border-radius: 8px;
-        border: 2px solid #e2e8f0;
+        border: 1px solid #333;
       }
 
       .benchmark-card h3 {
         font-size: 0.9rem;
-        color: #64748b;
+        color: #a0a0a0;
         margin-bottom: 0.5rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -155,29 +191,30 @@
       .benchmark-time {
         font-size: 2rem;
         font-weight: 700;
-        color: #1e293b;
+        color: #ffffff;
       }
 
       .benchmark-label {
         font-size: 0.875rem;
-        color: #64748b;
+        color: #888;
         margin-top: 0.25rem;
       }
 
       .winner {
         border-color: #10b981;
-        background: #d1fae5;
+        background: linear-gradient(135deg, #1a3a2a 0%, #152d21 100%);
       }
 
       .winner h3 {
-        color: #065f46;
+        color: #10b981;
       }
 
       .error-message {
         padding: 1rem;
-        background: #fee2e2;
-        color: #991b1b;
-        border-radius: 6px;
+        background: linear-gradient(135deg, #3a1a1a 0%, #2d1515 100%);
+        color: #ef4444;
+        border: 1px solid #4a2020;
+        border-radius: 8px;
         margin-top: 1rem;
       }
 
@@ -185,7 +222,7 @@
         display: inline-block;
         width: 16px;
         height: 16px;
-        border: 3px solid rgba(255, 255, 255, 0.3);
+        border: 3px solid rgba(255, 255, 255, 0.2);
         border-top-color: white;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
@@ -195,16 +232,25 @@
       @keyframes spin {
         to { transform: rotate(360deg); }
       }
+
+      @media (max-width: 768px) {
+        .benchmark-results {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>WasmWorker Demo</h1>
-      <p class="subtitle">WebAssembly + WebWorkers = Fast & Non-blocking</p>
+      <div class="header">
+        <img src="./logo-transparent.png" alt="WasmWorker Logo" class="logo" />
+        <h1>WasmWorker Demo</h1>
+        <p class="subtitle">WebAssembly + WebWorkers = Fast & Non-blocking</p>
+      </div>
 
       <div class="card">
         <h2>Worker Status</h2>
-        <div id="status" class="status loading">Loading...</div>
+        <div id="status" class="status loading">Not initialized</div>
         <button id="init-btn">Initialize Worker</button>
       </div>
 
