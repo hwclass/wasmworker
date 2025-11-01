@@ -1,6 +1,6 @@
 {
   "name": "@wasmworker/sdk",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Lightweight SDK for running WebAssembly modules inside WebWorkers",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,8 +22,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "clean": "rm -rf dist",
-    "sync-files": "cp ../../README.md README.md && cp ../../LICENSE LICENSE",
-    "prepublishOnly": "pnpm run sync-files && pnpm run clean && pnpm run build && pnpm run test"
+    "prepublishOnly": "pnpm run clean && pnpm run build && pnpm run test"
   },
   "keywords": [
     "wasm",
